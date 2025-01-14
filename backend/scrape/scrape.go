@@ -8,8 +8,9 @@ import (
 )
 
 type ScrapeModel struct {
-	Name     string `json:"name"`
-	ImageUrl string `json:"image_url"`
+	Id       *int   `json:"id" gorm:"primary_key"`
+	Name     string `json:"name" gorm:"column:name"`
+	ImageUrl string `json:"image_url" gorm:"column:image_url"`
 }
 type ScrapeModels []ScrapeModel
 
@@ -36,7 +37,10 @@ func Run(url string) (ScrapeModels, error) {
 		img := cell.Find("td .img-fixed")
 		pic, _ := img.Attr("src")
 		if name != "" && pic != "" {
-			sm = append(sm, ScrapeModel{name, pic})
+			sm = append(sm, ScrapeModel{
+				Name:     name,
+				ImageUrl: pic,
+			})
 		}
 
 	})
