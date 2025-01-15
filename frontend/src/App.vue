@@ -80,7 +80,8 @@ const paginate = (pokemons)=> {
 }
 
 const getPokemons=()=>{
-  axios.get(import.meta.env.VITE_URL || "http://127.0.0.1:7777"+"/pokemons")
+  // axios.get(import.meta.env.VITE_URL || "http://127.0.0.1:7777"+"/pokemons")
+  axios.get('https://web-scraper-application-objective.onrender.com/pokemons')
     .then(res=>{
       pokemons.value = res.data.data.pokemons
       count.value  = res.data.data.count
@@ -95,8 +96,10 @@ onMounted(() => {
 
 const submit = () =>{
   if (url.value ==='')return
-  axios.post(import.meta.env.VITE_URL || "http://127.0.0.1:7777"+"/scrape", {url:url.value})
-    .then(res=>{
+  // axios.post(import.meta.env.VITE_URL || "http://127.0.0.1:7777"+"/scrape", {url:url.value})
+  axios.post('https://web-scraper-application-objective.onrender.com/scrape', {url:url.value})
+
+.then(res=>{
       if (res.data.status ===200)getPokemons()
     })
     .catch(err =>console.log(err))
