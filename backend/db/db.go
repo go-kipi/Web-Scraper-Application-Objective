@@ -66,11 +66,11 @@ func (d *DB) SaveToSqlite(data interface{}) error {
 
 func (d *DB) GetFromSqlite() (interface{}, error) {
 	var data []struct {
-		Name     string
-		ImageUrl string `gorm:"column:image_url"`
+		Name     string `json:"name"`
+		ImageUrl string `json:"image_url" gorm:"column:image_url"`
 	}
 
-	if err := d.Db.Table("pokemons").Select("name").Scan(&data).Error; err != nil {
+	if err := d.Db.Table("pokemons").Select("name,image_url").Scan(&data).Error; err != nil {
 		return nil, fmt.Errorf("can not get pokemons to sqlite: %v", err)
 	}
 	return data, nil
