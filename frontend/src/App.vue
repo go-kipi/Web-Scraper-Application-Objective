@@ -80,7 +80,7 @@ const paginate = (pokemons)=> {
 }
 
 const getPokemons=()=>{
-  axios.get(import.meta.env.VITE_URL || "http://127.0.0.1:7777/pokemons")
+  axios.get(import.meta.env.VITE_URL || "http://127.0.0.1:7777"+"/pokemons")
     .then(res=>{
       pokemons.value = res.data.data.pokemons
       count.value  = res.data.data.count
@@ -95,7 +95,7 @@ onMounted(() => {
 
 const submit = () =>{
   if (url.value ==='')return
-  axios.post("http://127.0.0.1:7777/scrape", {url:url.value})
+  axios.post(import.meta.env.VITE_URL || "http://127.0.0.1:7777"+"/scrape", {url:url.value})
     .then(res=>{
       if (res.data.status ===200)getPokemons()
     })
